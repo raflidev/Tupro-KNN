@@ -1,4 +1,3 @@
-from cmath import e
 import pandas as pd
 
 xls = pd.ExcelFile('traintest.xlsx')
@@ -16,7 +15,7 @@ def euclidean_distance(x, y):
 def manhattan_distance(x, y):
   result = []
   for i in range(len(x)):
-    res = abs((x['x1'][i] - y['x1']) + ((x['x2'][i] - y['x2'])) + ((x['x3'][i] - y['x3'])))
+    res = (abs(x['x1'][i] - y['x1']) + abs((x['x2'][i] - y['x2'])) + abs((x['x3'][i] - y['x3'])))
     result.append([res, x['y'][i]])
   return result
 
@@ -108,5 +107,10 @@ euclidean, manhattan = validate([fold1, fold2, fold3], 3)
 print(euclidean)
 print(manhattan)
 
-a = kkn(df, dfTest, 15)
-print(a)
+euclideanKNN, manhattanKNN = kkn(df, dfTest, 3)
+dfEuc = pd.DataFrame(euclideanKNN, columns=['id', 'y'])
+dfMan = pd.DataFrame(manhattanKNN, columns=['id', 'y'])
+
+with pd.ExcelWriter('KNN.xlsx') as writer:  
+    dfEuc.to_excel(writer, sheet_name='euclidean', index=False)
+    dfMan.to_excel(writer, sheet_name='manhattan', index=False)
