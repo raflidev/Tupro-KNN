@@ -71,7 +71,7 @@ def validate(fold, k):
   euc = []
   man = []
   for i in range(len(fold)):
-    euclidean, manhattan = kkn(fold[i][0], fold[i][1], k)
+    euclidean, manhattan = knn(fold[i][0], fold[i][1], k)
     euc.append(check_accurracy(euclidean))
     man.append(check_accurracy(manhattan))
   return euc, man
@@ -85,8 +85,8 @@ def check_accurracy(modeling):
   return res/len(modeling)
 
 
-# metode KKN dilakukan
-def kkn(df, dfTest, k):
+# metode KNN dilakukan
+def knn(df, dfTest, k):
   euclidean = k_euclidean(df, dfTest, k)
   manhattan = k_manhattan(df, dfTest, k)
 
@@ -107,7 +107,7 @@ euclidean, manhattan = validate([fold1, fold2, fold3], 3)
 print(euclidean)
 print(manhattan)
 
-euclideanKNN, manhattanKNN = kkn(df, dfTest, 3)
+euclideanKNN, manhattanKNN = knn(df, dfTest, 3)
 dfEuc = pd.DataFrame(euclideanKNN, columns=['id', 'y'])
 dfMan = pd.DataFrame(manhattanKNN, columns=['id', 'y'])
 
